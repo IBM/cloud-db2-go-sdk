@@ -68,14 +68,13 @@ var _ = Describe(`Db2saasV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"DB2SAAS_URL": "https://db2saasv1/api",
+				"DB2SAAS_URL":       "https://db2saasv1/api",
 				"DB2SAAS_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				db2saasService, serviceErr := db2saasv1.NewDb2saasV1UsingExternalConfig(&db2saasv1.Db2saasV1Options{
-				})
+				db2saasService, serviceErr := db2saasv1.NewDb2saasV1UsingExternalConfig(&db2saasv1.Db2saasV1Options{})
 				Expect(db2saasService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -104,8 +103,7 @@ var _ = Describe(`Db2saasV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				db2saasService, serviceErr := db2saasv1.NewDb2saasV1UsingExternalConfig(&db2saasv1.Db2saasV1Options{
-				})
+				db2saasService, serviceErr := db2saasv1.NewDb2saasV1UsingExternalConfig(&db2saasv1.Db2saasV1Options{})
 				err := db2saasService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(db2saasService).ToNot(BeNil())
@@ -123,13 +121,12 @@ var _ = Describe(`Db2saasV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"DB2SAAS_URL": "https://db2saasv1/api",
+				"DB2SAAS_URL":       "https://db2saasv1/api",
 				"DB2SAAS_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			db2saasService, serviceErr := db2saasv1.NewDb2saasV1UsingExternalConfig(&db2saasv1.Db2saasV1Options{
-			})
+			db2saasService, serviceErr := db2saasv1.NewDb2saasV1UsingExternalConfig(&db2saasv1.Db2saasV1Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(db2saasService).To(BeNil())
@@ -140,7 +137,7 @@ var _ = Describe(`Db2saasV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"DB2SAAS_AUTH_TYPE":   "NOAuth",
+				"DB2SAAS_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -1440,331 +1437,6 @@ var _ = Describe(`Db2saasV1`, func() {
 			})
 		})
 	})
-	Describe(`PutDb2SaasUser(putDb2SaasUserOptions *PutDb2SaasUserOptions) - Operation response error`, func() {
-		putDb2SaasUserPath := "/users/test-user"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(putDb2SaasUserPath))
-					Expect(req.Method).To(Equal("PUT"))
-					Expect(req.Header["X-Deployment-Id"]).ToNot(BeNil())
-					Expect(req.Header["X-Deployment-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke PutDb2SaasUser with error: Operation response processing error`, func() {
-				db2saasService, serviceErr := db2saasv1.NewDb2saasV1(&db2saasv1.Db2saasV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(db2saasService).ToNot(BeNil())
-
-				// Construct an instance of the UpdateUserAuthentication model
-				updateUserAuthenticationModel := new(db2saasv1.UpdateUserAuthentication)
-				updateUserAuthenticationModel.Method = core.StringPtr("internal")
-				updateUserAuthenticationModel.PolicyID = core.StringPtr("Default")
-
-				// Construct an instance of the PutDb2SaasUserOptions model
-				putDb2SaasUserOptionsModel := new(db2saasv1.PutDb2SaasUserOptions)
-				putDb2SaasUserOptionsModel.XDeploymentID = core.StringPtr("testString")
-				putDb2SaasUserOptionsModel.ID = core.StringPtr("test-user")
-				putDb2SaasUserOptionsModel.NewID = core.StringPtr("test-user")
-				putDb2SaasUserOptionsModel.NewName = core.StringPtr("test_user")
-				putDb2SaasUserOptionsModel.NewOldPassword = core.StringPtr("dEkMc43@gfAPl!867^dSbu")
-				putDb2SaasUserOptionsModel.NewNewPassword = core.StringPtr("ihbgc26@gfAPl!1297^dFGy")
-				putDb2SaasUserOptionsModel.NewRole = core.StringPtr("bluuser")
-				putDb2SaasUserOptionsModel.NewEmail = core.StringPtr("test_user@mycompany.com")
-				putDb2SaasUserOptionsModel.NewLocked = core.StringPtr("no")
-				putDb2SaasUserOptionsModel.NewAuthentication = updateUserAuthenticationModel
-				putDb2SaasUserOptionsModel.NewIbmid = core.StringPtr("test-ibm-id")
-				putDb2SaasUserOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := db2saasService.PutDb2SaasUser(putDb2SaasUserOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				db2saasService.EnableRetries(0, 0)
-				result, response, operationErr = db2saasService.PutDb2SaasUser(putDb2SaasUserOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`PutDb2SaasUser(putDb2SaasUserOptions *PutDb2SaasUserOptions)`, func() {
-		putDb2SaasUserPath := "/users/test-user"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(putDb2SaasUserPath))
-					Expect(req.Method).To(Equal("PUT"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					Expect(req.Header["X-Deployment-Id"]).ToNot(BeNil())
-					Expect(req.Header["X-Deployment-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"dvRole": "DvRole", "metadata": {"anyKey": "anyValue"}, "formatedIbmid": "FormatedIbmid", "role": "bluadmin", "iamid": "Iamid", "permittedActions": ["PermittedActions"], "allClean": true, "password": "Password", "iam": false, "name": "Name", "ibmid": "Ibmid", "id": "ID", "locked": "no", "initErrorMsg": "InitErrorMsg", "email": "user@host.org", "authentication": {"method": "Method", "policy_id": "PolicyID"}}`)
-				}))
-			})
-			It(`Invoke PutDb2SaasUser successfully with retries`, func() {
-				db2saasService, serviceErr := db2saasv1.NewDb2saasV1(&db2saasv1.Db2saasV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(db2saasService).ToNot(BeNil())
-				db2saasService.EnableRetries(0, 0)
-
-				// Construct an instance of the UpdateUserAuthentication model
-				updateUserAuthenticationModel := new(db2saasv1.UpdateUserAuthentication)
-				updateUserAuthenticationModel.Method = core.StringPtr("internal")
-				updateUserAuthenticationModel.PolicyID = core.StringPtr("Default")
-
-				// Construct an instance of the PutDb2SaasUserOptions model
-				putDb2SaasUserOptionsModel := new(db2saasv1.PutDb2SaasUserOptions)
-				putDb2SaasUserOptionsModel.XDeploymentID = core.StringPtr("testString")
-				putDb2SaasUserOptionsModel.ID = core.StringPtr("test-user")
-				putDb2SaasUserOptionsModel.NewID = core.StringPtr("test-user")
-				putDb2SaasUserOptionsModel.NewName = core.StringPtr("test_user")
-				putDb2SaasUserOptionsModel.NewOldPassword = core.StringPtr("dEkMc43@gfAPl!867^dSbu")
-				putDb2SaasUserOptionsModel.NewNewPassword = core.StringPtr("ihbgc26@gfAPl!1297^dFGy")
-				putDb2SaasUserOptionsModel.NewRole = core.StringPtr("bluuser")
-				putDb2SaasUserOptionsModel.NewEmail = core.StringPtr("test_user@mycompany.com")
-				putDb2SaasUserOptionsModel.NewLocked = core.StringPtr("no")
-				putDb2SaasUserOptionsModel.NewAuthentication = updateUserAuthenticationModel
-				putDb2SaasUserOptionsModel.NewIbmid = core.StringPtr("test-ibm-id")
-				putDb2SaasUserOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := db2saasService.PutDb2SaasUserWithContext(ctx, putDb2SaasUserOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				db2saasService.DisableRetries()
-				result, response, operationErr := db2saasService.PutDb2SaasUser(putDb2SaasUserOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = db2saasService.PutDb2SaasUserWithContext(ctx, putDb2SaasUserOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(putDb2SaasUserPath))
-					Expect(req.Method).To(Equal("PUT"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					Expect(req.Header["X-Deployment-Id"]).ToNot(BeNil())
-					Expect(req.Header["X-Deployment-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"dvRole": "DvRole", "metadata": {"anyKey": "anyValue"}, "formatedIbmid": "FormatedIbmid", "role": "bluadmin", "iamid": "Iamid", "permittedActions": ["PermittedActions"], "allClean": true, "password": "Password", "iam": false, "name": "Name", "ibmid": "Ibmid", "id": "ID", "locked": "no", "initErrorMsg": "InitErrorMsg", "email": "user@host.org", "authentication": {"method": "Method", "policy_id": "PolicyID"}}`)
-				}))
-			})
-			It(`Invoke PutDb2SaasUser successfully`, func() {
-				db2saasService, serviceErr := db2saasv1.NewDb2saasV1(&db2saasv1.Db2saasV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(db2saasService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := db2saasService.PutDb2SaasUser(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the UpdateUserAuthentication model
-				updateUserAuthenticationModel := new(db2saasv1.UpdateUserAuthentication)
-				updateUserAuthenticationModel.Method = core.StringPtr("internal")
-				updateUserAuthenticationModel.PolicyID = core.StringPtr("Default")
-
-				// Construct an instance of the PutDb2SaasUserOptions model
-				putDb2SaasUserOptionsModel := new(db2saasv1.PutDb2SaasUserOptions)
-				putDb2SaasUserOptionsModel.XDeploymentID = core.StringPtr("testString")
-				putDb2SaasUserOptionsModel.ID = core.StringPtr("test-user")
-				putDb2SaasUserOptionsModel.NewID = core.StringPtr("test-user")
-				putDb2SaasUserOptionsModel.NewName = core.StringPtr("test_user")
-				putDb2SaasUserOptionsModel.NewOldPassword = core.StringPtr("dEkMc43@gfAPl!867^dSbu")
-				putDb2SaasUserOptionsModel.NewNewPassword = core.StringPtr("ihbgc26@gfAPl!1297^dFGy")
-				putDb2SaasUserOptionsModel.NewRole = core.StringPtr("bluuser")
-				putDb2SaasUserOptionsModel.NewEmail = core.StringPtr("test_user@mycompany.com")
-				putDb2SaasUserOptionsModel.NewLocked = core.StringPtr("no")
-				putDb2SaasUserOptionsModel.NewAuthentication = updateUserAuthenticationModel
-				putDb2SaasUserOptionsModel.NewIbmid = core.StringPtr("test-ibm-id")
-				putDb2SaasUserOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = db2saasService.PutDb2SaasUser(putDb2SaasUserOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke PutDb2SaasUser with error: Operation validation and request error`, func() {
-				db2saasService, serviceErr := db2saasv1.NewDb2saasV1(&db2saasv1.Db2saasV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(db2saasService).ToNot(BeNil())
-
-				// Construct an instance of the UpdateUserAuthentication model
-				updateUserAuthenticationModel := new(db2saasv1.UpdateUserAuthentication)
-				updateUserAuthenticationModel.Method = core.StringPtr("internal")
-				updateUserAuthenticationModel.PolicyID = core.StringPtr("Default")
-
-				// Construct an instance of the PutDb2SaasUserOptions model
-				putDb2SaasUserOptionsModel := new(db2saasv1.PutDb2SaasUserOptions)
-				putDb2SaasUserOptionsModel.XDeploymentID = core.StringPtr("testString")
-				putDb2SaasUserOptionsModel.ID = core.StringPtr("test-user")
-				putDb2SaasUserOptionsModel.NewID = core.StringPtr("test-user")
-				putDb2SaasUserOptionsModel.NewName = core.StringPtr("test_user")
-				putDb2SaasUserOptionsModel.NewOldPassword = core.StringPtr("dEkMc43@gfAPl!867^dSbu")
-				putDb2SaasUserOptionsModel.NewNewPassword = core.StringPtr("ihbgc26@gfAPl!1297^dFGy")
-				putDb2SaasUserOptionsModel.NewRole = core.StringPtr("bluuser")
-				putDb2SaasUserOptionsModel.NewEmail = core.StringPtr("test_user@mycompany.com")
-				putDb2SaasUserOptionsModel.NewLocked = core.StringPtr("no")
-				putDb2SaasUserOptionsModel.NewAuthentication = updateUserAuthenticationModel
-				putDb2SaasUserOptionsModel.NewIbmid = core.StringPtr("test-ibm-id")
-				putDb2SaasUserOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := db2saasService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := db2saasService.PutDb2SaasUser(putDb2SaasUserOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the PutDb2SaasUserOptions model with no property values
-				putDb2SaasUserOptionsModelNew := new(db2saasv1.PutDb2SaasUserOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = db2saasService.PutDb2SaasUser(putDb2SaasUserOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke PutDb2SaasUser successfully`, func() {
-				db2saasService, serviceErr := db2saasv1.NewDb2saasV1(&db2saasv1.Db2saasV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(db2saasService).ToNot(BeNil())
-
-				// Construct an instance of the UpdateUserAuthentication model
-				updateUserAuthenticationModel := new(db2saasv1.UpdateUserAuthentication)
-				updateUserAuthenticationModel.Method = core.StringPtr("internal")
-				updateUserAuthenticationModel.PolicyID = core.StringPtr("Default")
-
-				// Construct an instance of the PutDb2SaasUserOptions model
-				putDb2SaasUserOptionsModel := new(db2saasv1.PutDb2SaasUserOptions)
-				putDb2SaasUserOptionsModel.XDeploymentID = core.StringPtr("testString")
-				putDb2SaasUserOptionsModel.ID = core.StringPtr("test-user")
-				putDb2SaasUserOptionsModel.NewID = core.StringPtr("test-user")
-				putDb2SaasUserOptionsModel.NewName = core.StringPtr("test_user")
-				putDb2SaasUserOptionsModel.NewOldPassword = core.StringPtr("dEkMc43@gfAPl!867^dSbu")
-				putDb2SaasUserOptionsModel.NewNewPassword = core.StringPtr("ihbgc26@gfAPl!1297^dFGy")
-				putDb2SaasUserOptionsModel.NewRole = core.StringPtr("bluuser")
-				putDb2SaasUserOptionsModel.NewEmail = core.StringPtr("test_user@mycompany.com")
-				putDb2SaasUserOptionsModel.NewLocked = core.StringPtr("no")
-				putDb2SaasUserOptionsModel.NewAuthentication = updateUserAuthenticationModel
-				putDb2SaasUserOptionsModel.NewIbmid = core.StringPtr("test-ibm-id")
-				putDb2SaasUserOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := db2saasService.PutDb2SaasUser(putDb2SaasUserOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
 	Describe(`DeleteDb2SaasUser(deleteDb2SaasUserOptions *DeleteDb2SaasUserOptions)`, func() {
 		deleteDb2SaasUserPath := "/users/test-user"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -2823,53 +2495,6 @@ var _ = Describe(`Db2saasV1`, func() {
 				Expect(putDb2SaasAutoscaleOptionsModel.AutoScalingAllowPlanLimit).To(Equal(core.StringPtr("YES")))
 				Expect(putDb2SaasAutoscaleOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewPutDb2SaasUserOptions successfully`, func() {
-				// Construct an instance of the UpdateUserAuthentication model
-				updateUserAuthenticationModel := new(db2saasv1.UpdateUserAuthentication)
-				Expect(updateUserAuthenticationModel).ToNot(BeNil())
-				updateUserAuthenticationModel.Method = core.StringPtr("internal")
-				updateUserAuthenticationModel.PolicyID = core.StringPtr("Default")
-				Expect(updateUserAuthenticationModel.Method).To(Equal(core.StringPtr("internal")))
-				Expect(updateUserAuthenticationModel.PolicyID).To(Equal(core.StringPtr("Default")))
-
-				// Construct an instance of the PutDb2SaasUserOptions model
-				xDeploymentID := "testString"
-				id := "test-user"
-				putDb2SaasUserOptionsNewID := "test-user"
-				putDb2SaasUserOptionsNewName := "test_user"
-				putDb2SaasUserOptionsNewOldPassword := "dEkMc43@gfAPl!867^dSbu"
-				putDb2SaasUserOptionsNewNewPassword := "ihbgc26@gfAPl!1297^dFGy"
-				putDb2SaasUserOptionsNewRole := "bluuser"
-				putDb2SaasUserOptionsNewEmail := "test_user@mycompany.com"
-				putDb2SaasUserOptionsNewLocked := "no"
-				var putDb2SaasUserOptionsNewAuthentication *db2saasv1.UpdateUserAuthentication = nil
-				putDb2SaasUserOptionsModel := db2saasService.NewPutDb2SaasUserOptions(xDeploymentID, id, putDb2SaasUserOptionsNewID, putDb2SaasUserOptionsNewName, putDb2SaasUserOptionsNewOldPassword, putDb2SaasUserOptionsNewNewPassword, putDb2SaasUserOptionsNewRole, putDb2SaasUserOptionsNewEmail, putDb2SaasUserOptionsNewLocked, putDb2SaasUserOptionsNewAuthentication)
-				putDb2SaasUserOptionsModel.SetXDeploymentID("testString")
-				putDb2SaasUserOptionsModel.SetID("test-user")
-				putDb2SaasUserOptionsModel.SetNewID("test-user")
-				putDb2SaasUserOptionsModel.SetNewName("test_user")
-				putDb2SaasUserOptionsModel.SetNewOldPassword("dEkMc43@gfAPl!867^dSbu")
-				putDb2SaasUserOptionsModel.SetNewNewPassword("ihbgc26@gfAPl!1297^dFGy")
-				putDb2SaasUserOptionsModel.SetNewRole("bluuser")
-				putDb2SaasUserOptionsModel.SetNewEmail("test_user@mycompany.com")
-				putDb2SaasUserOptionsModel.SetNewLocked("no")
-				putDb2SaasUserOptionsModel.SetNewAuthentication(updateUserAuthenticationModel)
-				putDb2SaasUserOptionsModel.SetNewIbmid("test-ibm-id")
-				putDb2SaasUserOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(putDb2SaasUserOptionsModel).ToNot(BeNil())
-				Expect(putDb2SaasUserOptionsModel.XDeploymentID).To(Equal(core.StringPtr("testString")))
-				Expect(putDb2SaasUserOptionsModel.ID).To(Equal(core.StringPtr("test-user")))
-				Expect(putDb2SaasUserOptionsModel.NewID).To(Equal(core.StringPtr("test-user")))
-				Expect(putDb2SaasUserOptionsModel.NewName).To(Equal(core.StringPtr("test_user")))
-				Expect(putDb2SaasUserOptionsModel.NewOldPassword).To(Equal(core.StringPtr("dEkMc43@gfAPl!867^dSbu")))
-				Expect(putDb2SaasUserOptionsModel.NewNewPassword).To(Equal(core.StringPtr("ihbgc26@gfAPl!1297^dFGy")))
-				Expect(putDb2SaasUserOptionsModel.NewRole).To(Equal(core.StringPtr("bluuser")))
-				Expect(putDb2SaasUserOptionsModel.NewEmail).To(Equal(core.StringPtr("test_user@mycompany.com")))
-				Expect(putDb2SaasUserOptionsModel.NewLocked).To(Equal(core.StringPtr("no")))
-				Expect(putDb2SaasUserOptionsModel.NewAuthentication).To(Equal(updateUserAuthenticationModel))
-				Expect(putDb2SaasUserOptionsModel.NewIbmid).To(Equal(core.StringPtr("test-ibm-id")))
-				Expect(putDb2SaasUserOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
 		})
 	})
 	Describe(`Model unmarshaling tests`, func() {
@@ -2907,25 +2532,6 @@ var _ = Describe(`Db2saasV1`, func() {
 
 			var result *db2saasv1.IpAddress
 			err = db2saasv1.UnmarshalIpAddress(raw, &result)
-			Expect(err).To(BeNil())
-			Expect(result).ToNot(BeNil())
-			Expect(result).To(Equal(model))
-		})
-		It(`Invoke UnmarshalUpdateUserAuthentication successfully`, func() {
-			// Construct an instance of the model.
-			model := new(db2saasv1.UpdateUserAuthentication)
-			model.Method = core.StringPtr("internal")
-			model.PolicyID = core.StringPtr("Default")
-
-			b, err := json.Marshal(model)
-			Expect(err).To(BeNil())
-
-			var raw map[string]json.RawMessage
-			err = json.Unmarshal(b, &raw)
-			Expect(err).To(BeNil())
-
-			var result *db2saasv1.UpdateUserAuthentication
-			err = db2saasv1.UnmarshalUpdateUserAuthentication(raw, &result)
 			Expect(err).To(BeNil())
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))
