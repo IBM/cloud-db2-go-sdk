@@ -42,10 +42,10 @@ var _ = Describe(`Db2saasV1 Integration Tests`, func() {
 	const externalConfigFile = "../db2saas_v1.env"
 
 	var (
-		err          error
+		err            error
 		db2saasService *db2saasv1.Db2saasV1
-		serviceURL   string
-		config       map[string]string
+		serviceURL     string
+		config         map[string]string
 	)
 
 	var shouldSkipTest = func() {
@@ -97,7 +97,7 @@ var _ = Describe(`Db2saasV1 Integration Tests`, func() {
 		})
 		It(`GetDb2SaasConnectionInfo(getDb2SaasConnectionInfoOptions *GetDb2SaasConnectionInfoOptions)`, func() {
 			getDb2SaasConnectionInfoOptions := &db2saasv1.GetDb2SaasConnectionInfoOptions{
-				DeploymentID: core.StringPtr("testString"),
+				DeploymentID:  core.StringPtr("testString"),
 				XDeploymentID: core.StringPtr("testString"),
 			}
 
@@ -114,13 +114,13 @@ var _ = Describe(`Db2saasV1 Integration Tests`, func() {
 		})
 		It(`PostDb2SaasWhitelist(postDb2SaasWhitelistOptions *PostDb2SaasWhitelistOptions)`, func() {
 			ipAddressModel := &db2saasv1.IpAddress{
-				Address: core.StringPtr("127.0.0.1"),
+				Address:     core.StringPtr("127.0.0.1"),
 				Description: core.StringPtr("A sample IP address"),
 			}
 
 			postDb2SaasWhitelistOptions := &db2saasv1.PostDb2SaasWhitelistOptions{
 				XDeploymentID: core.StringPtr("testString"),
-				IpAddresses: []db2saasv1.IpAddress{*ipAddressModel},
+				IpAddresses:   []db2saasv1.IpAddress{*ipAddressModel},
 			}
 
 			successPostWhitelistIPs, response, err := db2saasService.PostDb2SaasWhitelist(postDb2SaasWhitelistOptions)
@@ -152,20 +152,20 @@ var _ = Describe(`Db2saasV1 Integration Tests`, func() {
 		})
 		It(`PostDb2SaasUser(postDb2SaasUserOptions *PostDb2SaasUserOptions)`, func() {
 			createUserAuthenticationModel := &db2saasv1.CreateUserAuthentication{
-				Method: core.StringPtr("internal"),
+				Method:   core.StringPtr("internal"),
 				PolicyID: core.StringPtr("Default"),
 			}
 
 			postDb2SaasUserOptions := &db2saasv1.PostDb2SaasUserOptions{
-				XDeploymentID: core.StringPtr("testString"),
-				ID: core.StringPtr("test-user"),
-				Iam: core.BoolPtr(false),
-				Ibmid: core.StringPtr("test-ibm-id"),
-				Name: core.StringPtr("test_user"),
-				Password: core.StringPtr("dEkMc43@gfAPl!867^dSbu"),
-				Role: core.StringPtr("bluuser"),
-				Email: core.StringPtr("test_user@mycompany.com"),
-				Locked: core.StringPtr("no"),
+				XDeploymentID:  core.StringPtr("testString"),
+				ID:             core.StringPtr("test-user"),
+				Iam:            core.BoolPtr(false),
+				Ibmid:          core.StringPtr("test-ibm-id"),
+				Name:           core.StringPtr("test_user"),
+				Password:       core.StringPtr("dEkMc43@gfAPl!867^dSbu"),
+				Role:           core.StringPtr("bluuser"),
+				Email:          core.StringPtr("test_user@mycompany.com"),
+				Locked:         core.StringPtr("no"),
 				Authentication: createUserAuthenticationModel,
 			}
 
@@ -192,37 +192,6 @@ var _ = Describe(`Db2saasV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`PutDb2SaasUser - Update the details of existing user`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`PutDb2SaasUser(putDb2SaasUserOptions *PutDb2SaasUserOptions)`, func() {
-			updateUserAuthenticationModel := &db2saasv1.UpdateUserAuthentication{
-				Method: core.StringPtr("internal"),
-				PolicyID: core.StringPtr("Default"),
-			}
-
-			putDb2SaasUserOptions := &db2saasv1.PutDb2SaasUserOptions{
-				XDeploymentID: core.StringPtr("testString"),
-				ID: core.StringPtr("test-user"),
-				NewID: core.StringPtr("test-user"),
-				NewName: core.StringPtr("test_user"),
-				NewOldPassword: core.StringPtr("dEkMc43@gfAPl!867^dSbu"),
-				NewNewPassword: core.StringPtr("ihbgc26@gfAPl!1297^dFGy"),
-				NewRole: core.StringPtr("bluuser"),
-				NewEmail: core.StringPtr("test_user@mycompany.com"),
-				NewLocked: core.StringPtr("no"),
-				NewAuthentication: updateUserAuthenticationModel,
-				NewIbmid: core.StringPtr("test-ibm-id"),
-			}
-
-			successUserResponse, response, err := db2saasService.PutDb2SaasUser(putDb2SaasUserOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(successUserResponse).ToNot(BeNil())
-		})
-	})
-
 	Describe(`GetbyidDb2SaasUser - Get specific user by Id`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -245,8 +214,8 @@ var _ = Describe(`Db2saasV1 Integration Tests`, func() {
 		})
 		It(`PutDb2SaasAutoscale(putDb2SaasAutoscaleOptions *PutDb2SaasAutoscaleOptions)`, func() {
 			putDb2SaasAutoscaleOptions := &db2saasv1.PutDb2SaasAutoscaleOptions{
-				XDeploymentID: core.StringPtr("testString"),
-				AutoScalingThreshold: core.Int64Ptr(int64(90)),
+				XDeploymentID:         core.StringPtr("testString"),
+				AutoScalingThreshold:  core.Int64Ptr(int64(90)),
 				AutoScalingPauseLimit: core.Int64Ptr(int64(70)),
 			}
 
@@ -280,7 +249,7 @@ var _ = Describe(`Db2saasV1 Integration Tests`, func() {
 		It(`DeleteDb2SaasUser(deleteDb2SaasUserOptions *DeleteDb2SaasUserOptions)`, func() {
 			deleteDb2SaasUserOptions := &db2saasv1.DeleteDb2SaasUserOptions{
 				XDeploymentID: core.StringPtr("testString"),
-				ID: core.StringPtr("test-user"),
+				ID:            core.StringPtr("test-user"),
 			}
 
 			result, response, err := db2saasService.DeleteDb2SaasUser(deleteDb2SaasUserOptions)

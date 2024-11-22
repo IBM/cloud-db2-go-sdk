@@ -29,7 +29,6 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-//
 // This file provides an example of how to use the db2saas service.
 //
 // The following configuration properties are assumed to be defined:
@@ -41,14 +40,13 @@ import (
 // These configuration properties can be exported as environment variables, or stored
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
-//
 var _ = Describe(`Db2saasV1 Examples Tests`, func() {
 
 	const externalConfigFile = "../db2saas_v1.env"
 
 	var (
 		db2saasService *db2saasv1.Db2saasV1
-		config       map[string]string
+		config         map[string]string
 	)
 
 	var shouldSkipTest = func() {
@@ -129,7 +127,7 @@ var _ = Describe(`Db2saasV1 Examples Tests`, func() {
 			// begin-post_db2_saas_whitelist
 
 			ipAddressModel := &db2saasv1.IpAddress{
-				Address: core.StringPtr("127.0.0.1"),
+				Address:     core.StringPtr("127.0.0.1"),
 				Description: core.StringPtr("A sample IP address"),
 			}
 
@@ -177,7 +175,7 @@ var _ = Describe(`Db2saasV1 Examples Tests`, func() {
 			// begin-post_db2_saas_user
 
 			createUserAuthenticationModel := &db2saasv1.CreateUserAuthentication{
-				Method: core.StringPtr("internal"),
+				Method:   core.StringPtr("internal"),
 				PolicyID: core.StringPtr("Default"),
 			}
 
@@ -227,39 +225,6 @@ var _ = Describe(`Db2saasV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(successGetUserInfo).ToNot(BeNil())
-		})
-		It(`PutDb2SaasUser request example`, func() {
-			fmt.Println("\nPutDb2SaasUser() result:")
-			// begin-put_db2_saas_user
-
-			updateUserAuthenticationModel := &db2saasv1.UpdateUserAuthentication{
-			}
-
-			putDb2SaasUserOptions := db2saasService.NewPutDb2SaasUserOptions(
-				"testString",
-				"test-user",
-				"test-user",
-				"test_user",
-				"dEkMc43@gfAPl!867^dSbu",
-				"ihbgc26@gfAPl!1297^dFGy",
-				"bluuser",
-				"test_user@mycompany.com",
-				"no",
-				updateUserAuthenticationModel,
-			)
-
-			successUserResponse, response, err := db2saasService.PutDb2SaasUser(putDb2SaasUserOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(successUserResponse, "", "  ")
-			fmt.Println(string(b))
-
-			// end-put_db2_saas_user
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(successUserResponse).ToNot(BeNil())
 		})
 		It(`GetbyidDb2SaasUser request example`, func() {
 			fmt.Println("\nGetbyidDb2SaasUser() result:")
