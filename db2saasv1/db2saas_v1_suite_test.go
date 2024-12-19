@@ -14,16 +14,17 @@
  * limitations under the License.
  */
 
-package db2saasv1_test
+ package db2saasv1_test
 
-import (
-	"testing"
-
-	. "github.com/onsi/ginkgo"
-	. "github.com/onsi/gomega"
-)
-
-func TestDb2saasV1(t *testing.T) {
-	RegisterFailHandler(Fail)
-	RunSpecs(t, "Db2saasV1 Suite")
-}
+ import (
+	 "testing"
+ 
+	 . "github.com/onsi/ginkgo"
+	 . "github.com/onsi/gomega"
+ )
+ 
+ func TestDb2saasV1(t *testing.T) {
+	 RegisterFailHandler(Fail)
+	 RunSpecs(t, "Db2saasV1 Suite")
+ }
+ 

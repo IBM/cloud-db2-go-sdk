@@ -251,21 +251,21 @@ func (db2saas *Db2saasV1) GetDb2SaasConnectionInfoWithContext(ctx context.Contex
 	return
 }
 
-// PostDb2SaasWhitelist : Whitelisting of new IPs
-func (db2saas *Db2saasV1) PostDb2SaasWhitelist(postDb2SaasWhitelistOptions *PostDb2SaasWhitelistOptions) (result *SuccessPostWhitelistIPs, response *core.DetailedResponse, err error) {
-	result, response, err = db2saas.PostDb2SaasWhitelistWithContext(context.Background(), postDb2SaasWhitelistOptions)
+// PostDb2SaasAllowlist : Allow listing of new IPs
+func (db2saas *Db2saasV1) PostDb2SaasAllowlist(postDb2SaasAllowlistOptions *PostDb2SaasAllowlistOptions) (result *SuccessPostAllowedlistIPs, response *core.DetailedResponse, err error) {
+	result, response, err = db2saas.PostDb2SaasAllowlistWithContext(context.Background(), postDb2SaasAllowlistOptions)
 	err = core.RepurposeSDKProblem(err, "")
 	return
 }
 
-// PostDb2SaasWhitelistWithContext is an alternate form of the PostDb2SaasWhitelist method which supports a Context parameter
-func (db2saas *Db2saasV1) PostDb2SaasWhitelistWithContext(ctx context.Context, postDb2SaasWhitelistOptions *PostDb2SaasWhitelistOptions) (result *SuccessPostWhitelistIPs, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(postDb2SaasWhitelistOptions, "postDb2SaasWhitelistOptions cannot be nil")
+// PostDb2SaasAllowlistWithContext is an alternate form of the PostDb2SaasAllowlist method which supports a Context parameter
+func (db2saas *Db2saasV1) PostDb2SaasAllowlistWithContext(ctx context.Context, postDb2SaasAllowlistOptions *PostDb2SaasAllowlistOptions) (result *SuccessPostAllowedlistIPs, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(postDb2SaasAllowlistOptions, "postDb2SaasAllowlistOptions cannot be nil")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
-	err = core.ValidateStruct(postDb2SaasWhitelistOptions, "postDb2SaasWhitelistOptions")
+	err = core.ValidateStruct(postDb2SaasAllowlistOptions, "postDb2SaasAllowlistOptions")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
@@ -280,23 +280,23 @@ func (db2saas *Db2saasV1) PostDb2SaasWhitelistWithContext(ctx context.Context, p
 		return
 	}
 
-	for headerName, headerValue := range postDb2SaasWhitelistOptions.Headers {
+	for headerName, headerValue := range postDb2SaasAllowlistOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("db2saas", "V1", "PostDb2SaasWhitelist")
+	sdkHeaders := common.GetSdkHeaders("db2saas", "V1", "PostDb2SaasAllowlist")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
-	if postDb2SaasWhitelistOptions.XDeploymentID != nil {
-		builder.AddHeader("x-deployment-id", fmt.Sprint(*postDb2SaasWhitelistOptions.XDeploymentID))
+	if postDb2SaasAllowlistOptions.XDeploymentID != nil {
+		builder.AddHeader("x-deployment-id", fmt.Sprint(*postDb2SaasAllowlistOptions.XDeploymentID))
 	}
 
 	body := make(map[string]interface{})
-	if postDb2SaasWhitelistOptions.IpAddresses != nil {
-		body["ip_addresses"] = postDb2SaasWhitelistOptions.IpAddresses
+	if postDb2SaasAllowlistOptions.IpAddresses != nil {
+		body["ip_addresses"] = postDb2SaasAllowlistOptions.IpAddresses
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -313,12 +313,12 @@ func (db2saas *Db2saasV1) PostDb2SaasWhitelistWithContext(ctx context.Context, p
 	var rawResponse map[string]json.RawMessage
 	response, err = db2saas.Service.Request(request, &rawResponse)
 	if err != nil {
-		core.EnrichHTTPProblem(err, "post_db2_saas_whitelist", getServiceComponentInfo())
+		core.EnrichHTTPProblem(err, "post_db2_saas_allowlist", getServiceComponentInfo())
 		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalSuccessPostWhitelistIPs)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalSuccessPostAllowedlistIPs)
 		if err != nil {
 			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
@@ -329,21 +329,21 @@ func (db2saas *Db2saasV1) PostDb2SaasWhitelistWithContext(ctx context.Context, p
 	return
 }
 
-// GetDb2SaasWhitelist : Get whitelisted IPs
-func (db2saas *Db2saasV1) GetDb2SaasWhitelist(getDb2SaasWhitelistOptions *GetDb2SaasWhitelistOptions) (result *SuccessGetWhitelistIPs, response *core.DetailedResponse, err error) {
-	result, response, err = db2saas.GetDb2SaasWhitelistWithContext(context.Background(), getDb2SaasWhitelistOptions)
+// GetDb2SaasAllowlist : Get allowed list of IPs
+func (db2saas *Db2saasV1) GetDb2SaasAllowlist(getDb2SaasAllowlistOptions *GetDb2SaasAllowlistOptions) (result *SuccessGetAllowlistIPs, response *core.DetailedResponse, err error) {
+	result, response, err = db2saas.GetDb2SaasAllowlistWithContext(context.Background(), getDb2SaasAllowlistOptions)
 	err = core.RepurposeSDKProblem(err, "")
 	return
 }
 
-// GetDb2SaasWhitelistWithContext is an alternate form of the GetDb2SaasWhitelist method which supports a Context parameter
-func (db2saas *Db2saasV1) GetDb2SaasWhitelistWithContext(ctx context.Context, getDb2SaasWhitelistOptions *GetDb2SaasWhitelistOptions) (result *SuccessGetWhitelistIPs, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(getDb2SaasWhitelistOptions, "getDb2SaasWhitelistOptions cannot be nil")
+// GetDb2SaasAllowlistWithContext is an alternate form of the GetDb2SaasAllowlist method which supports a Context parameter
+func (db2saas *Db2saasV1) GetDb2SaasAllowlistWithContext(ctx context.Context, getDb2SaasAllowlistOptions *GetDb2SaasAllowlistOptions) (result *SuccessGetAllowlistIPs, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getDb2SaasAllowlistOptions, "getDb2SaasAllowlistOptions cannot be nil")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
-	err = core.ValidateStruct(getDb2SaasWhitelistOptions, "getDb2SaasWhitelistOptions")
+	err = core.ValidateStruct(getDb2SaasAllowlistOptions, "getDb2SaasAllowlistOptions")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
@@ -358,17 +358,17 @@ func (db2saas *Db2saasV1) GetDb2SaasWhitelistWithContext(ctx context.Context, ge
 		return
 	}
 
-	for headerName, headerValue := range getDb2SaasWhitelistOptions.Headers {
+	for headerName, headerValue := range getDb2SaasAllowlistOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("db2saas", "V1", "GetDb2SaasWhitelist")
+	sdkHeaders := common.GetSdkHeaders("db2saas", "V1", "GetDb2SaasAllowlist")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
-	if getDb2SaasWhitelistOptions.XDeploymentID != nil {
-		builder.AddHeader("x-deployment-id", fmt.Sprint(*getDb2SaasWhitelistOptions.XDeploymentID))
+	if getDb2SaasAllowlistOptions.XDeploymentID != nil {
+		builder.AddHeader("x-deployment-id", fmt.Sprint(*getDb2SaasAllowlistOptions.XDeploymentID))
 	}
 
 	request, err := builder.Build()
@@ -380,12 +380,12 @@ func (db2saas *Db2saasV1) GetDb2SaasWhitelistWithContext(ctx context.Context, ge
 	var rawResponse map[string]json.RawMessage
 	response, err = db2saas.Service.Request(request, &rawResponse)
 	if err != nil {
-		core.EnrichHTTPProblem(err, "get_db2_saas_whitelist", getServiceComponentInfo())
+		core.EnrichHTTPProblem(err, "get_db2_saas_allowlist", getServiceComponentInfo())
 		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalSuccessGetWhitelistIPs)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalSuccessGetAllowlistIPs)
 		if err != nil {
 			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
@@ -866,7 +866,7 @@ type CreateUserAuthentication struct {
 // NewCreateUserAuthentication : Instantiate CreateUserAuthentication (Generic Model Constructor)
 func (*Db2saasV1) NewCreateUserAuthentication(method string, policyID string) (_model *CreateUserAuthentication, err error) {
 	_model = &CreateUserAuthentication{
-		Method:   core.StringPtr(method),
+		Method: core.StringPtr(method),
 		PolicyID: core.StringPtr(policyID),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -909,7 +909,7 @@ type DeleteDb2SaasUserOptions struct {
 func (*Db2saasV1) NewDeleteDb2SaasUserOptions(xDeploymentID string, id string) *DeleteDb2SaasUserOptions {
 	return &DeleteDb2SaasUserOptions{
 		XDeploymentID: core.StringPtr(xDeploymentID),
-		ID:            core.StringPtr(id),
+		ID: core.StringPtr(id),
 	}
 }
 
@@ -927,6 +927,34 @@ func (_options *DeleteDb2SaasUserOptions) SetID(id string) *DeleteDb2SaasUserOpt
 
 // SetHeaders : Allow user to set Headers
 func (options *DeleteDb2SaasUserOptions) SetHeaders(param map[string]string) *DeleteDb2SaasUserOptions {
+	options.Headers = param
+	return options
+}
+
+// GetDb2SaasAllowlistOptions : The GetDb2SaasAllowlist options.
+type GetDb2SaasAllowlistOptions struct {
+	// CRN deployment id.
+	XDeploymentID *string `json:"x-deployment-id" validate:"required"`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewGetDb2SaasAllowlistOptions : Instantiate GetDb2SaasAllowlistOptions
+func (*Db2saasV1) NewGetDb2SaasAllowlistOptions(xDeploymentID string) *GetDb2SaasAllowlistOptions {
+	return &GetDb2SaasAllowlistOptions{
+		XDeploymentID: core.StringPtr(xDeploymentID),
+	}
+}
+
+// SetXDeploymentID : Allow user to set XDeploymentID
+func (_options *GetDb2SaasAllowlistOptions) SetXDeploymentID(xDeploymentID string) *GetDb2SaasAllowlistOptions {
+	_options.XDeploymentID = core.StringPtr(xDeploymentID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetDb2SaasAllowlistOptions) SetHeaders(param map[string]string) *GetDb2SaasAllowlistOptions {
 	options.Headers = param
 	return options
 }
@@ -974,7 +1002,7 @@ type GetDb2SaasConnectionInfoOptions struct {
 // NewGetDb2SaasConnectionInfoOptions : Instantiate GetDb2SaasConnectionInfoOptions
 func (*Db2saasV1) NewGetDb2SaasConnectionInfoOptions(deploymentID string, xDeploymentID string) *GetDb2SaasConnectionInfoOptions {
 	return &GetDb2SaasConnectionInfoOptions{
-		DeploymentID:  core.StringPtr(deploymentID),
+		DeploymentID: core.StringPtr(deploymentID),
 		XDeploymentID: core.StringPtr(xDeploymentID),
 	}
 }
@@ -1025,34 +1053,6 @@ func (options *GetDb2SaasUserOptions) SetHeaders(param map[string]string) *GetDb
 	return options
 }
 
-// GetDb2SaasWhitelistOptions : The GetDb2SaasWhitelist options.
-type GetDb2SaasWhitelistOptions struct {
-	// CRN deployment id.
-	XDeploymentID *string `json:"x-deployment-id" validate:"required"`
-
-	// Allows users to set headers on API requests.
-	Headers map[string]string
-}
-
-// NewGetDb2SaasWhitelistOptions : Instantiate GetDb2SaasWhitelistOptions
-func (*Db2saasV1) NewGetDb2SaasWhitelistOptions(xDeploymentID string) *GetDb2SaasWhitelistOptions {
-	return &GetDb2SaasWhitelistOptions{
-		XDeploymentID: core.StringPtr(xDeploymentID),
-	}
-}
-
-// SetXDeploymentID : Allow user to set XDeploymentID
-func (_options *GetDb2SaasWhitelistOptions) SetXDeploymentID(xDeploymentID string) *GetDb2SaasWhitelistOptions {
-	_options.XDeploymentID = core.StringPtr(xDeploymentID)
-	return _options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *GetDb2SaasWhitelistOptions) SetHeaders(param map[string]string) *GetDb2SaasWhitelistOptions {
-	options.Headers = param
-	return options
-}
-
 // GetbyidDb2SaasUserOptions : The GetbyidDb2SaasUser options.
 type GetbyidDb2SaasUserOptions struct {
 	// CRN deployment id.
@@ -1093,7 +1093,7 @@ type IpAddress struct {
 // NewIpAddress : Instantiate IpAddress (Generic Model Constructor)
 func (*Db2saasV1) NewIpAddress(address string, description string) (_model *IpAddress, err error) {
 	_model = &IpAddress{
-		Address:     core.StringPtr(address),
+		Address: core.StringPtr(address),
 		Description: core.StringPtr(description),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -1118,6 +1118,44 @@ func UnmarshalIpAddress(m map[string]json.RawMessage, result interface{}) (err e
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+// PostDb2SaasAllowlistOptions : The PostDb2SaasAllowlist options.
+type PostDb2SaasAllowlistOptions struct {
+	// CRN deployment id.
+	XDeploymentID *string `json:"x-deployment-id" validate:"required"`
+
+	// List of IP addresses.
+	IpAddresses []IpAddress `json:"ip_addresses" validate:"required"`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewPostDb2SaasAllowlistOptions : Instantiate PostDb2SaasAllowlistOptions
+func (*Db2saasV1) NewPostDb2SaasAllowlistOptions(xDeploymentID string, ipAddresses []IpAddress) *PostDb2SaasAllowlistOptions {
+	return &PostDb2SaasAllowlistOptions{
+		XDeploymentID: core.StringPtr(xDeploymentID),
+		IpAddresses: ipAddresses,
+	}
+}
+
+// SetXDeploymentID : Allow user to set XDeploymentID
+func (_options *PostDb2SaasAllowlistOptions) SetXDeploymentID(xDeploymentID string) *PostDb2SaasAllowlistOptions {
+	_options.XDeploymentID = core.StringPtr(xDeploymentID)
+	return _options
+}
+
+// SetIpAddresses : Allow user to set IpAddresses
+func (_options *PostDb2SaasAllowlistOptions) SetIpAddresses(ipAddresses []IpAddress) *PostDb2SaasAllowlistOptions {
+	_options.IpAddresses = ipAddresses
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *PostDb2SaasAllowlistOptions) SetHeaders(param map[string]string) *PostDb2SaasAllowlistOptions {
+	options.Headers = param
+	return options
 }
 
 // PostDb2SaasUserOptions : The PostDb2SaasUser options.
@@ -1159,28 +1197,28 @@ type PostDb2SaasUserOptions struct {
 // Role of the User.
 const (
 	PostDb2SaasUserOptions_Role_Bluadmin = "bluadmin"
-	PostDb2SaasUserOptions_Role_Bluuser  = "bluuser"
+	PostDb2SaasUserOptions_Role_Bluuser = "bluuser"
 )
 
 // Constants associated with the PostDb2SaasUserOptions.Locked property.
 // Indicates if the account is locked.
 const (
-	PostDb2SaasUserOptions_Locked_No  = "no"
+	PostDb2SaasUserOptions_Locked_No = "no"
 	PostDb2SaasUserOptions_Locked_Yes = "yes"
 )
 
 // NewPostDb2SaasUserOptions : Instantiate PostDb2SaasUserOptions
 func (*Db2saasV1) NewPostDb2SaasUserOptions(xDeploymentID string, id string, iam bool, ibmid string, name string, password string, role string, email string, locked string, authentication *CreateUserAuthentication) *PostDb2SaasUserOptions {
 	return &PostDb2SaasUserOptions{
-		XDeploymentID:  core.StringPtr(xDeploymentID),
-		ID:             core.StringPtr(id),
-		Iam:            core.BoolPtr(iam),
-		Ibmid:          core.StringPtr(ibmid),
-		Name:           core.StringPtr(name),
-		Password:       core.StringPtr(password),
-		Role:           core.StringPtr(role),
-		Email:          core.StringPtr(email),
-		Locked:         core.StringPtr(locked),
+		XDeploymentID: core.StringPtr(xDeploymentID),
+		ID: core.StringPtr(id),
+		Iam: core.BoolPtr(iam),
+		Ibmid: core.StringPtr(ibmid),
+		Name: core.StringPtr(name),
+		Password: core.StringPtr(password),
+		Role: core.StringPtr(role),
+		Email: core.StringPtr(email),
+		Locked: core.StringPtr(locked),
 		Authentication: authentication,
 	}
 }
@@ -1251,44 +1289,6 @@ func (options *PostDb2SaasUserOptions) SetHeaders(param map[string]string) *Post
 	return options
 }
 
-// PostDb2SaasWhitelistOptions : The PostDb2SaasWhitelist options.
-type PostDb2SaasWhitelistOptions struct {
-	// CRN deployment id.
-	XDeploymentID *string `json:"x-deployment-id" validate:"required"`
-
-	// List of IP addresses.
-	IpAddresses []IpAddress `json:"ip_addresses" validate:"required"`
-
-	// Allows users to set headers on API requests.
-	Headers map[string]string
-}
-
-// NewPostDb2SaasWhitelistOptions : Instantiate PostDb2SaasWhitelistOptions
-func (*Db2saasV1) NewPostDb2SaasWhitelistOptions(xDeploymentID string, ipAddresses []IpAddress) *PostDb2SaasWhitelistOptions {
-	return &PostDb2SaasWhitelistOptions{
-		XDeploymentID: core.StringPtr(xDeploymentID),
-		IpAddresses:   ipAddresses,
-	}
-}
-
-// SetXDeploymentID : Allow user to set XDeploymentID
-func (_options *PostDb2SaasWhitelistOptions) SetXDeploymentID(xDeploymentID string) *PostDb2SaasWhitelistOptions {
-	_options.XDeploymentID = core.StringPtr(xDeploymentID)
-	return _options
-}
-
-// SetIpAddresses : Allow user to set IpAddresses
-func (_options *PostDb2SaasWhitelistOptions) SetIpAddresses(ipAddresses []IpAddress) *PostDb2SaasWhitelistOptions {
-	_options.IpAddresses = ipAddresses
-	return _options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *PostDb2SaasWhitelistOptions) SetHeaders(param map[string]string) *PostDb2SaasWhitelistOptions {
-	options.Headers = param
-	return options
-}
-
 // PutDb2SaasAutoscaleOptions : The PutDb2SaasAutoscale options.
 type PutDb2SaasAutoscaleOptions struct {
 	// CRN deployment id.
@@ -1317,13 +1317,13 @@ type PutDb2SaasAutoscaleOptions struct {
 // Indicates if automatic scaling is enabled or not.
 const (
 	PutDb2SaasAutoscaleOptions_AutoScalingEnabled_False = "false"
-	PutDb2SaasAutoscaleOptions_AutoScalingEnabled_True  = "true"
+	PutDb2SaasAutoscaleOptions_AutoScalingEnabled_True = "true"
 )
 
 // Constants associated with the PutDb2SaasAutoscaleOptions.AutoScalingAllowPlanLimit property.
 // Indicates the maximum number of scaling actions that are allowed within a specified time period.
 const (
-	PutDb2SaasAutoscaleOptions_AutoScalingAllowPlanLimit_No  = "NO"
+	PutDb2SaasAutoscaleOptions_AutoScalingAllowPlanLimit_No = "NO"
 	PutDb2SaasAutoscaleOptions_AutoScalingAllowPlanLimit_Yes = "YES"
 )
 
@@ -1600,6 +1600,24 @@ func UnmarshalSuccessConnectionInfoPublic(m map[string]json.RawMessage, result i
 	return
 }
 
+// SuccessGetAllowlistIPs : Success response of get allowlist IPs.
+type SuccessGetAllowlistIPs struct {
+	// List of IP addresses.
+	IpAddresses []IpAddress `json:"ip_addresses" validate:"required"`
+}
+
+// UnmarshalSuccessGetAllowlistIPs unmarshals an instance of SuccessGetAllowlistIPs from the specified map of raw messages.
+func UnmarshalSuccessGetAllowlistIPs(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(SuccessGetAllowlistIPs)
+	err = core.UnmarshalModel(m, "ip_addresses", &obj.IpAddresses, UnmarshalIpAddress)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "ip_addresses-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // SuccessGetUserByID : The details of the users.
 type SuccessGetUserByID struct {
 	// User's DV role.
@@ -1655,13 +1673,13 @@ type SuccessGetUserByID struct {
 // Role assigned to the user.
 const (
 	SuccessGetUserByID_Role_Bluadmin = "bluadmin"
-	SuccessGetUserByID_Role_Bluuser  = "bluuser"
+	SuccessGetUserByID_Role_Bluuser = "bluuser"
 )
 
 // Constants associated with the SuccessGetUserByID.Locked property.
 // Account lock status for the user.
 const (
-	SuccessGetUserByID_Locked_No  = "no"
+	SuccessGetUserByID_Locked_No = "no"
 	SuccessGetUserByID_Locked_Yes = "yes"
 )
 
@@ -1859,13 +1877,13 @@ type SuccessGetUserInfoResourcesItem struct {
 // Role assigned to the user.
 const (
 	SuccessGetUserInfoResourcesItem_Role_Bluadmin = "bluadmin"
-	SuccessGetUserInfoResourcesItem_Role_Bluuser  = "bluuser"
+	SuccessGetUserInfoResourcesItem_Role_Bluuser = "bluuser"
 )
 
 // Constants associated with the SuccessGetUserInfoResourcesItem.Locked property.
 // Account lock status for the user.
 const (
-	SuccessGetUserInfoResourcesItem_Locked_No  = "no"
+	SuccessGetUserInfoResourcesItem_Locked_No = "no"
 	SuccessGetUserInfoResourcesItem_Locked_Yes = "yes"
 )
 
@@ -1982,33 +2000,15 @@ func UnmarshalSuccessGetUserInfoResourcesItemAuthentication(m map[string]json.Ra
 	return
 }
 
-// SuccessGetWhitelistIPs : Success response of get whitelist IPs.
-type SuccessGetWhitelistIPs struct {
-	// List of IP addresses.
-	IpAddresses []IpAddress `json:"ip_addresses" validate:"required"`
-}
-
-// UnmarshalSuccessGetWhitelistIPs unmarshals an instance of SuccessGetWhitelistIPs from the specified map of raw messages.
-func UnmarshalSuccessGetWhitelistIPs(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(SuccessGetWhitelistIPs)
-	err = core.UnmarshalModel(m, "ip_addresses", &obj.IpAddresses, UnmarshalIpAddress)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "ip_addresses-error", common.GetComponentInfo())
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// SuccessPostWhitelistIPs : Success response of post whitelist IPs.
-type SuccessPostWhitelistIPs struct {
-	// status of the post whitelist IPs request.
+// SuccessPostAllowedlistIPs : Success response of post allowlist IPs.
+type SuccessPostAllowedlistIPs struct {
+	// status of the post allowlist IPs request.
 	Status *string `json:"status" validate:"required"`
 }
 
-// UnmarshalSuccessPostWhitelistIPs unmarshals an instance of SuccessPostWhitelistIPs from the specified map of raw messages.
-func UnmarshalSuccessPostWhitelistIPs(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(SuccessPostWhitelistIPs)
+// UnmarshalSuccessPostAllowedlistIPs unmarshals an instance of SuccessPostAllowedlistIPs from the specified map of raw messages.
+func UnmarshalSuccessPostAllowedlistIPs(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(SuccessPostAllowedlistIPs)
 	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
@@ -2091,13 +2091,13 @@ type SuccessUserResponse struct {
 // Role assigned to the user.
 const (
 	SuccessUserResponse_Role_Bluadmin = "bluadmin"
-	SuccessUserResponse_Role_Bluuser  = "bluuser"
+	SuccessUserResponse_Role_Bluuser = "bluuser"
 )
 
 // Constants associated with the SuccessUserResponse.Locked property.
 // Account lock status for the user.
 const (
-	SuccessUserResponse_Locked_No  = "no"
+	SuccessUserResponse_Locked_No = "no"
 	SuccessUserResponse_Locked_Yes = "yes"
 )
 
