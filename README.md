@@ -1,7 +1,7 @@
 [![Build Status](https://v3.travis.ibm.com/CloudEngineering/go-sdk-template.svg?token=Z799xXryYYPor3yyJxEs&branch=main)](https://v3.travis.ibm.com/CloudEngineering/go-sdk-template)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-# IBM Cloud Db2 Go SDK Version 0.2.1
+# IBM Cloud Db2 Go SDK Version 0.2.2
 Go client library to interact with the various [IBM Cloud Db2 SDK Service APIs](https://cloud.ibm.com/apidocs/db2-on-cloud/db2-on-cloud-v4).
 
 Disclaimer: this SDK is being released initially as a **pre-release** version.
@@ -51,7 +51,7 @@ Service Name | Package name
 * Go version 1.21 or above.
 
 ## Installation
-The current version of this SDK: 0.2.1
+The current version of this SDK: 0.2.2
 
 ### Go modules  
 If your application uses Go modules for dependency management (recommended), just add an import for each service 

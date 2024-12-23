@@ -1,3 +1,7 @@
+# [v0.2.2](https://github.com/IBM/cloud-db2-go-sdk/compare/v0.2.1...v0.2.2) (2024-12-23)
+### Features
+* **IBM Cloud Db2 SaaS:** Renamed function names of whitelist to allowlist ([#7](https://github.com/IBM/cloud-db2-go-sdk/pull/7))
+
 # [v0.2.1](https://github.com/IBM/cloud-db2-go-sdk/compare/v0.2.0...v0.2.1) (2024-12-06)
 ### Features
 * **IBM Cloud Db2 SaaS:** Updated functionalites in autoscaling and connectioninfo ([#6](https://github.com/IBM/cloud-db2-go-sdk/pull/6))
