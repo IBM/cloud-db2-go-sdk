@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.96.0-d6dec9d7-20241008-212902
+ * IBM OpenAPI SDK Code Generator Version: 3.106.0-09823488-20250707-071701
  */
 
 // Package db2saasv1 : Operations and models for the Db2saasV1 service
@@ -565,15 +565,121 @@ func (db2saas *Db2saasV1) GetDb2SaasUserWithContext(ctx context.Context, getDb2S
 	return
 }
 
+// PutDb2SaasUser : Update existing user (available only for platform users)
+func (db2saas *Db2saasV1) PutDb2SaasUser(putDb2SaasUserOptions *PutDb2SaasUserOptions) (result *SuccessUserResponse, response *core.DetailedResponse, err error) {
+	result, response, err = db2saas.PutDb2SaasUserWithContext(context.Background(), putDb2SaasUserOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// PutDb2SaasUserWithContext is an alternate form of the PutDb2SaasUser method which supports a Context parameter
+func (db2saas *Db2saasV1) PutDb2SaasUserWithContext(ctx context.Context, putDb2SaasUserOptions *PutDb2SaasUserOptions) (result *SuccessUserResponse, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(putDb2SaasUserOptions, "putDb2SaasUserOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(putDb2SaasUserOptions, "putDb2SaasUserOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *putDb2SaasUserOptions.ID,
+	}
+
+	builder := core.NewRequestBuilder(core.PUT)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = db2saas.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(db2saas.Service.Options.URL, `/users/{id}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	sdkHeaders := common.GetSdkHeaders("db2saas", "V1", "PutDb2SaasUser")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	for headerName, headerValue := range putDb2SaasUserOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+	if putDb2SaasUserOptions.XDeploymentID != nil {
+		builder.AddHeader("x-deployment-id", fmt.Sprint(*putDb2SaasUserOptions.XDeploymentID))
+	}
+
+	body := make(map[string]interface{})
+	if putDb2SaasUserOptions.NewID != nil {
+		body["id"] = putDb2SaasUserOptions.NewID
+	}
+	if putDb2SaasUserOptions.NewIam != nil {
+		body["iam"] = putDb2SaasUserOptions.NewIam
+	}
+	if putDb2SaasUserOptions.NewIbmid != nil {
+		body["ibmid"] = putDb2SaasUserOptions.NewIbmid
+	}
+	if putDb2SaasUserOptions.NewName != nil {
+		body["name"] = putDb2SaasUserOptions.NewName
+	}
+	if putDb2SaasUserOptions.NewPassword != nil {
+		body["password"] = putDb2SaasUserOptions.NewPassword
+	}
+	if putDb2SaasUserOptions.NewRole != nil {
+		body["role"] = putDb2SaasUserOptions.NewRole
+	}
+	if putDb2SaasUserOptions.NewEmail != nil {
+		body["email"] = putDb2SaasUserOptions.NewEmail
+	}
+	if putDb2SaasUserOptions.NewLocked != nil {
+		body["locked"] = putDb2SaasUserOptions.NewLocked
+	}
+	if putDb2SaasUserOptions.NewAuthentication != nil {
+		body["authentication"] = putDb2SaasUserOptions.NewAuthentication
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = db2saas.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "put_db2_saas_user", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalSuccessUserResponse)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
 // DeleteDb2SaasUser : Delete a user (only platform admin)
-func (db2saas *Db2saasV1) DeleteDb2SaasUser(deleteDb2SaasUserOptions *DeleteDb2SaasUserOptions) (result map[string]interface{}, response *core.DetailedResponse, err error) {
-	result, response, err = db2saas.DeleteDb2SaasUserWithContext(context.Background(), deleteDb2SaasUserOptions)
+func (db2saas *Db2saasV1) DeleteDb2SaasUser(deleteDb2SaasUserOptions *DeleteDb2SaasUserOptions) (response *core.DetailedResponse, err error) {
+	response, err = db2saas.DeleteDb2SaasUserWithContext(context.Background(), deleteDb2SaasUserOptions)
 	err = core.RepurposeSDKProblem(err, "")
 	return
 }
 
 // DeleteDb2SaasUserWithContext is an alternate form of the DeleteDb2SaasUser method which supports a Context parameter
-func (db2saas *Db2saasV1) DeleteDb2SaasUserWithContext(ctx context.Context, deleteDb2SaasUserOptions *DeleteDb2SaasUserOptions) (result map[string]interface{}, response *core.DetailedResponse, err error) {
+func (db2saas *Db2saasV1) DeleteDb2SaasUserWithContext(ctx context.Context, deleteDb2SaasUserOptions *DeleteDb2SaasUserOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteDb2SaasUserOptions, "deleteDb2SaasUserOptions cannot be nil")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
@@ -617,7 +723,7 @@ func (db2saas *Db2saasV1) DeleteDb2SaasUserWithContext(ctx context.Context, dele
 		return
 	}
 
-	response, err = db2saas.Service.Request(request, &result)
+	response, err = db2saas.Service.Request(request, nil)
 	if err != nil {
 		core.EnrichHTTPProblem(err, "delete_db2_saas_user", getServiceComponentInfo())
 		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
@@ -647,10 +753,14 @@ func (db2saas *Db2saasV1) GetbyidDb2SaasUserWithContext(ctx context.Context, get
 		return
 	}
 
+	pathParamsMap := map[string]string{
+		"id": *getbyidDb2SaasUserOptions.ID,
+	}
+
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = db2saas.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(db2saas.Service.Options.URL, `/users/bluadmin`, nil)
+	_, err = builder.ResolveRequestURL(db2saas.Service.Options.URL, `/users/{id}`, pathParamsMap)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
@@ -3767,20 +3877,30 @@ type GetbyidDb2SaasUserOptions struct {
 	// CRN deployment id.
 	XDeploymentID *string `json:"x-deployment-id" validate:"required"`
 
+	// id of the user.
+	ID *string `json:"id" validate:"required,ne="`
+
 	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
 // NewGetbyidDb2SaasUserOptions : Instantiate GetbyidDb2SaasUserOptions
-func (*Db2saasV1) NewGetbyidDb2SaasUserOptions(xDeploymentID string) *GetbyidDb2SaasUserOptions {
+func (*Db2saasV1) NewGetbyidDb2SaasUserOptions(xDeploymentID string, id string) *GetbyidDb2SaasUserOptions {
 	return &GetbyidDb2SaasUserOptions{
 		XDeploymentID: core.StringPtr(xDeploymentID),
+		ID: core.StringPtr(id),
 	}
 }
 
 // SetXDeploymentID : Allow user to set XDeploymentID
 func (_options *GetbyidDb2SaasUserOptions) SetXDeploymentID(xDeploymentID string) *GetbyidDb2SaasUserOptions {
 	_options.XDeploymentID = core.StringPtr(xDeploymentID)
+	return _options
+}
+
+// SetID : Allow user to set ID
+func (_options *GetbyidDb2SaasUserOptions) SetID(id string) *GetbyidDb2SaasUserOptions {
+	_options.ID = core.StringPtr(id)
 	return _options
 }
 
@@ -4164,6 +4284,147 @@ func (_options *PutDb2SaasAutoscaleOptions) SetAutoScalingAllowPlanLimit(autoSca
 
 // SetHeaders : Allow user to set Headers
 func (options *PutDb2SaasAutoscaleOptions) SetHeaders(param map[string]string) *PutDb2SaasAutoscaleOptions {
+	options.Headers = param
+	return options
+}
+
+// PutDb2SaasUserOptions : The PutDb2SaasUser options.
+type PutDb2SaasUserOptions struct {
+	// CRN deployment id.
+	XDeploymentID *string `json:"x-deployment-id" validate:"required"`
+
+	// id of the user.
+	ID *string `json:"-" validate:"required,ne="`
+
+	// The id of the User.
+	NewID *string `json:"id" validate:"required"`
+
+	// Indicates if IAM is enabled.
+	NewIam *bool `json:"iam" validate:"required"`
+
+	// IBM ID of the User.
+	NewIbmid *string `json:"ibmid" validate:"required"`
+
+	// The name of the User.
+	NewName *string `json:"name" validate:"required"`
+
+	// Password of the User.
+	NewPassword *string `json:"password" validate:"required"`
+
+	// Role of the User.
+	NewRole *string `json:"role" validate:"required"`
+
+	// Email of the User.
+	NewEmail *string `json:"email" validate:"required"`
+
+	// Indicates if the account is locked.
+	NewLocked *string `json:"locked" validate:"required"`
+
+	NewAuthentication *UpdateUserAuthentication `json:"authentication" validate:"required"`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// Constants associated with the PutDb2SaasUserOptions.NewRole property.
+// Role of the User.
+const (
+	PutDb2SaasUserOptions_NewRole_Bluadmin = "bluadmin"
+	PutDb2SaasUserOptions_NewRole_Bluuser = "bluuser"
+)
+
+// Constants associated with the PutDb2SaasUserOptions.NewLocked property.
+// Indicates if the account is locked.
+const (
+	PutDb2SaasUserOptions_NewLocked_No = "no"
+	PutDb2SaasUserOptions_NewLocked_Yes = "yes"
+)
+
+// NewPutDb2SaasUserOptions : Instantiate PutDb2SaasUserOptions
+func (*Db2saasV1) NewPutDb2SaasUserOptions(xDeploymentID string, id string, newID string, newIam bool, newIbmid string, newName string, newPassword string, newRole string, newEmail string, newLocked string, newAuthentication *UpdateUserAuthentication) *PutDb2SaasUserOptions {
+	return &PutDb2SaasUserOptions{
+		XDeploymentID: core.StringPtr(xDeploymentID),
+		ID: core.StringPtr(id),
+		NewID: core.StringPtr(newID),
+		NewIam: core.BoolPtr(newIam),
+		NewIbmid: core.StringPtr(newIbmid),
+		NewName: core.StringPtr(newName),
+		NewPassword: core.StringPtr(newPassword),
+		NewRole: core.StringPtr(newRole),
+		NewEmail: core.StringPtr(newEmail),
+		NewLocked: core.StringPtr(newLocked),
+		NewAuthentication: newAuthentication,
+	}
+}
+
+// SetXDeploymentID : Allow user to set XDeploymentID
+func (_options *PutDb2SaasUserOptions) SetXDeploymentID(xDeploymentID string) *PutDb2SaasUserOptions {
+	_options.XDeploymentID = core.StringPtr(xDeploymentID)
+	return _options
+}
+
+// SetID : Allow user to set ID
+func (_options *PutDb2SaasUserOptions) SetID(id string) *PutDb2SaasUserOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetNewID : Allow user to set NewID
+func (_options *PutDb2SaasUserOptions) SetNewID(newID string) *PutDb2SaasUserOptions {
+	_options.NewID = core.StringPtr(newID)
+	return _options
+}
+
+// SetNewIam : Allow user to set NewIam
+func (_options *PutDb2SaasUserOptions) SetNewIam(newIam bool) *PutDb2SaasUserOptions {
+	_options.NewIam = core.BoolPtr(newIam)
+	return _options
+}
+
+// SetNewIbmid : Allow user to set NewIbmid
+func (_options *PutDb2SaasUserOptions) SetNewIbmid(newIbmid string) *PutDb2SaasUserOptions {
+	_options.NewIbmid = core.StringPtr(newIbmid)
+	return _options
+}
+
+// SetNewName : Allow user to set NewName
+func (_options *PutDb2SaasUserOptions) SetNewName(newName string) *PutDb2SaasUserOptions {
+	_options.NewName = core.StringPtr(newName)
+	return _options
+}
+
+// SetNewPassword : Allow user to set NewPassword
+func (_options *PutDb2SaasUserOptions) SetNewPassword(newPassword string) *PutDb2SaasUserOptions {
+	_options.NewPassword = core.StringPtr(newPassword)
+	return _options
+}
+
+// SetNewRole : Allow user to set NewRole
+func (_options *PutDb2SaasUserOptions) SetNewRole(newRole string) *PutDb2SaasUserOptions {
+	_options.NewRole = core.StringPtr(newRole)
+	return _options
+}
+
+// SetNewEmail : Allow user to set NewEmail
+func (_options *PutDb2SaasUserOptions) SetNewEmail(newEmail string) *PutDb2SaasUserOptions {
+	_options.NewEmail = core.StringPtr(newEmail)
+	return _options
+}
+
+// SetNewLocked : Allow user to set NewLocked
+func (_options *PutDb2SaasUserOptions) SetNewLocked(newLocked string) *PutDb2SaasUserOptions {
+	_options.NewLocked = core.StringPtr(newLocked)
+	return _options
+}
+
+// SetNewAuthentication : Allow user to set NewAuthentication
+func (_options *PutDb2SaasUserOptions) SetNewAuthentication(newAuthentication *UpdateUserAuthentication) *PutDb2SaasUserOptions {
+	_options.NewAuthentication = newAuthentication
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *PutDb2SaasUserOptions) SetHeaders(param map[string]string) *PutDb2SaasUserOptions {
 	options.Headers = param
 	return options
 }
@@ -6293,6 +6554,45 @@ type SuccessUserResponseAuthentication struct {
 // UnmarshalSuccessUserResponseAuthentication unmarshals an instance of SuccessUserResponseAuthentication from the specified map of raw messages.
 func UnmarshalSuccessUserResponseAuthentication(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(SuccessUserResponseAuthentication)
+	err = core.UnmarshalPrimitive(m, "method", &obj.Method)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "method-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "policy_id", &obj.PolicyID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "policy_id-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// UpdateUserAuthentication : UpdateUserAuthentication struct
+type UpdateUserAuthentication struct {
+	// Authentication method.
+	Method *string `json:"method" validate:"required"`
+
+	// Authentication policy ID.
+	PolicyID *string `json:"policy_id" validate:"required"`
+}
+
+// NewUpdateUserAuthentication : Instantiate UpdateUserAuthentication (Generic Model Constructor)
+func (*Db2saasV1) NewUpdateUserAuthentication(method string, policyID string) (_model *UpdateUserAuthentication, err error) {
+	_model = &UpdateUserAuthentication{
+		Method: core.StringPtr(method),
+		PolicyID: core.StringPtr(policyID),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
+	return
+}
+
+// UnmarshalUpdateUserAuthentication unmarshals an instance of UpdateUserAuthentication from the specified map of raw messages.
+func UnmarshalUpdateUserAuthentication(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(UpdateUserAuthentication)
 	err = core.UnmarshalPrimitive(m, "method", &obj.Method)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "method-error", common.GetComponentInfo())
